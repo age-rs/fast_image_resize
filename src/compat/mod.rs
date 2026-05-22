@@ -1,4 +1,4 @@
-//! This module is used as compatability layer to support `std` and `no_std`.
+//! This module is used as a compatibility layer to support `std` and `no_std`.
 
 cfg_if::cfg_if! {
     if #[cfg(feature = "std")] {

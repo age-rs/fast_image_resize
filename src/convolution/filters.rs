@@ -9,7 +9,7 @@ use crate::compat::*;
 
 type FilterFn = fn(f64) -> f64;
 
-/// Description of custom filter for image convolution.
+/// Description of a custom filter for image convolution.
 #[derive(Clone, Copy)]
 pub struct Filter {
     /// Name of filter
@@ -39,7 +39,7 @@ impl Debug for Filter {
 
 #[derive(Error, Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CreateFilterError {
-    /// Value of 'support' argument must be finite and greater than 0.0
+    /// The value of the 'support' argument must be finite and greater than 0.0
     #[error("Value of 'support' argument must be finite and greater than 0.0")]
     InvalidSupport,
 }
@@ -81,7 +81,7 @@ impl Filter {
 #[derive(Default, Clone, Copy, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum FilterType {
-    /// Each pixel of source image contributes to one pixel of the
+    /// Each pixel of the source image contributes to one pixel of the
     /// destination image with identical weights. For upscaling is equivalent
     /// of `Nearest` resize algorithm.
     ///
@@ -95,7 +95,7 @@ pub enum FilterType {
     /// Hamming filter has the same performance as `Bilinear` filter while
     /// providing the image downscaling quality comparable to bicubic
     /// (`CatmulRom` or `Mitchell`). Produces a sharper image than `Bilinear`,
-    /// doesn't have dislocations on local level like with `Box`.
+    /// doesn't have dislocations on a local level like with `Box`.
     /// The filter doesn't show good quality for the image upscaling.
     ///
     /// Minimal kernel size 2x2 px.
@@ -106,7 +106,7 @@ pub enum FilterType {
     ///
     /// Minimal kernel size 4x4 px.
     CatmullRom,
-    /// Mitchell–Netravali bicubic filter calculate the output pixel value
+    /// Mitchell–Netravali bicubic filter calculates the output pixel value
     /// using cubic interpolation on all pixels that may contribute to the
     /// output value.
     ///
