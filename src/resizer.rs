@@ -580,22 +580,24 @@ fn resample_nearest<P: InnerPixel>(
     #[cfg(feature = "rayon")]
     {
         use rayon::prelude::*;
-
-        let mut row_refs: Vec<(&mut [P], &[P])> = dst_rows.zip(src_rows).collect();
-        row_refs.par_iter_mut().for_each(|(out_row, in_row)| {
-            for (&x_in, out_pixel) in x_in_tab.iter().zip(out_row.iter_mut()) {
-                // Safety of x_in value guaranteed by algorithm of creating of x_in_tab
-                *out_pixel = unsafe { *in_row.get_unchecked(x_in) };
-            }
-        });
+        let num_threads = rayon::current_num_threads();
+        if num_threads > 1 {
+            // This code can get stuck in lock if the number of threads less than 2.
+            let mut row_refs: Vec<(&mut [P], &[P])> = dst_rows.zip(src_rows).collect();
+            row_refs.par_iter_mut().for_each(|(out_row, in_row)| {
+                for (&x_in, out_pixel) in x_in_tab.iter().zip(out_row.iter_mut()) {
+                    // Safety of x_in value guaranteed by algorithm of creating of x_in_tab
+                    *out_pixel = unsafe { *in_row.get_unchecked(x_in) };
+                }
+            });
+            return;
+        }
     }
-    #[cfg(not(feature = "rayon"))]
-    {
-        for (out_row, in_row) in dst_rows.zip(src_rows) {
-            for (&x_in, out_pixel) in x_in_tab.iter().zip(out_row.iter_mut()) {
-                // Safety of x_in value guaranteed by algorithm of creating of x_in_tab
-                *out_pixel = unsafe { *in_row.get_unchecked(x_in) };
-            }
+
+    for (out_row, in_row) in dst_rows.zip(src_rows) {
+        for (&x_in, out_pixel) in x_in_tab.iter().zip(out_row.iter_mut()) {
+            // Safety of x_in value guaranteed by algorithm of creating of x_in_tab
+            *out_pixel = unsafe { *in_row.get_unchecked(x_in) };
         }
     }
 }

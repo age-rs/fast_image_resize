@@ -1,3 +1,10 @@
+## [Unreleased] - ReleaseDate
+
+### Fixed
+
+- Fixed a deadlock in case of using `rayon` thread pool with only one thread to
+  resize with `ResizeAlg::Nearest` algorithm.
+
 ## [6.0.0] - 2026-01-13
 
 ### Added
