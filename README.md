@@ -87,16 +87,16 @@ Pipeline:
 `src_image => resize => dst_image`
 
 - Source image [nasa-4928x3279.png](https://github.com/Cykooz/fast_image_resize/blob/main/data/nasa-4928x3279.png)
-- Numbers in the table mean a duration of image resizing in milliseconds.
+- Numbers in the table mean the duration of the image resizing in milliseconds.
 
 |            | Nearest |  Box  | Bilinear | Bicubic | Lanczos3 |
 |------------|:-------:|:-----:|:--------:|:-------:|:--------:|
-| image      |  29.28  |   -   |  83.28   | 136.97  |  189.93  |
-| resize     |  7.42   | 26.82 |  49.29   |  93.22  |  140.26  |
-| libvips    |  2.42   | 61.73 |   5.66   |  9.81   |  15.78   |
-| fir rust   |  0.28   | 10.87 |  16.12   |  26.63  |  38.08   |
-| fir sse4.1 |  0.28   | 3.37  |   5.34   |  9.89   |  15.30   |
-| fir avx2   |  0.28   | 2.52  |   3.67   |  6.80   |  13.21   |
+| image      |  28.92  |   -   |  78.41   | 127.38  |  173.98  |
+| resize     |  8.49   | 24.35 |  48.44   |  92.29  |  137.61  |
+| libvips    |  2.41   | 61.63 |   5.67   |  9.76   |  16.07   |
+| fir rust   |  0.28   | 10.72 |  15.67   |  26.08  |  37.15   |
+| fir sse4.1 |  0.28   | 3.74  |   5.64   |  10.28  |  15.98   |
+| fir avx2   |  0.28   | 2.77  |   4.16   |  7.37   |  14.35   |
 
 <!-- bench_compare_rgb end -->
 
@@ -110,16 +110,16 @@ Pipeline:
 
 - Source image
   [nasa-4928x3279-rgba.png](https://github.com/Cykooz/fast_image_resize/blob/main/data/nasa-4928x3279-rgba.png)
-- Numbers in the table mean a duration of image resizing in milliseconds.
+- Numbers in the table mean the duration of the image resizing in milliseconds.
 - The `image` crate does not support multiplying and dividing by alpha channel.
 
 |            | Nearest |  Box   | Bilinear | Bicubic | Lanczos3 |
 |------------|:-------:|:------:|:--------:|:-------:|:--------:|
-| resize     |  9.59   | 34.02  |  64.61   | 126.43  |  187.18  |
-| libvips    |  4.19   | 169.02 |  142.22  | 228.64  |  330.24  |
-| fir rust   |  0.19   | 20.30  |  25.25   |  36.57  |  49.69   |
-| fir sse4.1 |  0.19   |  9.51  |  11.90   |  17.78  |  24.49   |
-| fir avx2   |  0.19   |  7.11  |   8.39   |  13.68  |  21.72   |
+| resize     |  13.97  | 44.38  |  88.03   | 150.33  |  216.80  |
+| libvips    |  4.19   | 169.24 |  137.35  | 228.62  |  329.39  |
+| fir rust   |  0.20   | 20.57  |  25.80   |  37.26  |  50.53   |
+| fir sse4.1 |  0.20   | 10.17  |  13.77   |  18.20  |  25.35   |
+| fir avx2   |  0.20   |  7.41  |   9.02   |  13.46  |  25.45   |
 
 <!-- bench_compare_rgba end -->
 
@@ -133,16 +133,16 @@ Pipeline:
 
 - Source image [nasa-4928x3279.png](https://github.com/Cykooz/fast_image_resize/blob/main/data/nasa-4928x3279.png)
   has converted into grayscale image with one byte per pixel.
-- Numbers in the table mean a duration of image resizing in milliseconds.
+- Numbers in the table mean the duration of the image resizing in milliseconds.
 
 |            | Nearest |  Box  | Bilinear | Bicubic | Lanczos3 |
 |------------|:-------:|:-----:|:--------:|:-------:|:--------:|
-| image      |  26.90  |   -   |  56.49   |  85.11  |  112.72  |
-| resize     |  6.57   | 11.06 |  18.83   |  38.44  |  63.98   |
-| libvips    |  2.62   | 24.92 |   6.81   |  9.84   |  12.73   |
-| fir rust   |  0.16   | 4.42  |   5.45   |  8.69   |  12.04   |
-| fir sse4.1 |  0.16   | 1.45  |   2.02   |  3.37   |   5.44   |
-| fir avx2   |  0.16   | 1.51  |   1.73   |  2.74   |   4.11   |
+| image      |  26.33  |   -   |  57.97   |  86.30  |  113.91  |
+| resize     |  6.59   | 11.63 |  21.04   |  45.28  |  68.73   |
+| libvips    |  2.66   | 24.92 |   6.83   |  9.81   |  12.72   |
+| fir rust   |  0.16   | 4.34  |   5.46   |  8.73   |  12.09   |
+| fir sse4.1 |  0.16   | 1.66  |   2.25   |  3.67   |   5.89   |
+| fir avx2   |  0.16   | 1.92  |   2.04   |  3.16   |   4.51   |
 
 <!-- bench_compare_l end -->
 
