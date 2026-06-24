@@ -193,7 +193,7 @@ unsafe fn divide_alpha_8_pixels(pixels: v128) -> v128 {
         f32x4_splat(0.5),
     ));
 
-    // All u32::MAX values in arguments will interpreted as -1i32.
+    // All u32::MAX values in arguments will be interpreted as -1i32.
     // u16x8_narrow_i32x4() converts all negative values into 0.
     let scaled_alpha_u16 = u16x8_narrow_i32x4(scaled_alpha_lo_u32, scaled_alpha_hi_u32);
 

@@ -173,13 +173,13 @@ unsafe fn divide_alpha_4_pixels(pixels: v128) -> v128 {
 
     let alpha_scale = f32x4_splat(255.0 * 256.0);
 
-    let alpha_f32 = f32x4_convert_i32x4(u32x4_shr(pixels, 24));
+    let alpha_f32 = f32x4_convert_u32x4(u32x4_shr(pixels, 24));
     // In case of zero division the result will be u32::MAX or 0.
     let scaled_alpha_u32 = u32x4_trunc_sat_f32x4(f32x4_add(
         f32x4_div(alpha_scale, alpha_f32),
         f32x4_splat(0.5),
     ));
-    // All u32::MAX values in arguments will interpreted as -1i32.
+    // All u32::MAX values in arguments will be interpreted as -1i32.
     // u16x8_narrow_i32x4() converts all negative values into 0.
     let scaled_alpha_u16 = u16x8_narrow_i32x4(scaled_alpha_u32, scaled_alpha_u32);
     let factor_lo_u16x8 = u8x16_swizzle(scaled_alpha_u16, FACTOR_LO_SHUFFLE);
@@ -200,4 +200,48 @@ unsafe fn divide_alpha_4_pixels(pixels: v128) -> v128 {
     let alpha = v128_and(pixels, u32x4_splat(0xff000000));
     let rgb = u8x16_narrow_i16x8(dst_lo, dst_hi);
     v128_or(rgb, alpha)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::pixels::U8x4;
+
+    #[test]
+    fn divide_alpha_0() {
+        let pixels = [U8x4::new([1, 128, 255, 0]); 4];
+        let mut result = [U8x4::new([0; 4]); 4];
+        unsafe {
+            let mut pixels_v128 = v128_load(pixels.as_ptr() as *const v128);
+            pixels_v128 = divide_alpha_4_pixels(pixels_v128);
+            v128_store(result.as_mut_ptr() as *mut v128, pixels_v128);
+        }
+        assert_eq!(result[0].0, [0, 0, 0, 0]);
+    }
+
+    #[test]
+    fn divide_alpha_1() {
+        // This test fails in Rust 1.95 and 1.96
+        // https://github.com/rust-lang/rust/issues/157456
+        let pixels = [U8x4::new([1, 128, 255, 1]); 4];
+        let mut result = [U8x4::new([0; 4]); 4];
+        unsafe {
+            let mut pixels_v128 = v128_load(pixels.as_ptr() as *const v128);
+            pixels_v128 = divide_alpha_4_pixels(pixels_v128);
+            v128_store(result.as_mut_ptr() as *mut v128, pixels_v128);
+        }
+        assert_eq!(result[0].0, [255, 255, 255, 1]);
+    }
+
+    #[test]
+    fn divide_alpha_255() {
+        let pixels = [U8x4::new([1, 128, 255, 255]); 4];
+        let mut result = [U8x4::new([0; 4]); 4];
+        unsafe {
+            let mut pixels_v128 = v128_load(pixels.as_ptr() as *const v128);
+            pixels_v128 = divide_alpha_4_pixels(pixels_v128);
+            v128_store(result.as_mut_ptr() as *mut v128, pixels_v128);
+        }
+        assert_eq!(result[0].0, [1, 128, 255, 255]);
+    }
 }

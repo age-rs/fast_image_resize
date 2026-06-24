@@ -26,6 +26,12 @@ Supported pixel formats and available optimizations:
 | F32x3  | Three `f32` components per pixel (e.g. RGB32F)                |   +    |  +   |  -   |       -        |
 | F32x4  | Four `f32` components per pixel (e.g. RGBA32F)                |   +    |  +   |  -   |       -        |
 
+## Rust version
+
+Rust 1.95 and 1.96 (actually LLVM) have [regression](https://github.com/rust-lang/rust/issues/157456)
+in Wasm32 SIMD128 implementation.
+It affects the implementation of dividing U8x4 pixels by alpha channel for Wasm32 SIMD128.
+
 ## Colorspace
 
 Resizer from this crate does not convert image into linear colorspace

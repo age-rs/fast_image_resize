@@ -252,7 +252,8 @@ fn write_bench_results_into_file(md_table: &str) {
     }
     let file_path = file_path_buf.as_path();
 
-    let tera_engine = match tera::Tera::new(TEMPLATES_PATH) {
+    let mut tera_engine = tera::Tera::default();
+    match tera_engine.load_from_glob(TEMPLATES_PATH) {
         Ok(t) => t,
         Err(e) => {
             println!("Parsing error(s): {}", e);

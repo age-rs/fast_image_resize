@@ -94,3 +94,30 @@ fn divide_alpha_pixel(mut pixel: U8x4) -> U8x4 {
     ];
     pixel
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::pixels::U8x4;
+
+    #[test]
+    fn divide_alpha_0() {
+        let pixel = U8x4::new([1, 128, 255, 0]);
+        let res = divide_alpha_pixel(pixel);
+        assert_eq!(res.0, [0, 0, 0, 0]);
+    }
+
+    #[test]
+    fn divide_alpha_1() {
+        let pixel = U8x4::new([1, 128, 255, 1]);
+        let res = divide_alpha_pixel(pixel);
+        assert_eq!(res.0, [255, 255, 255, 1]);
+    }
+
+    #[test]
+    fn divide_alpha_255() {
+        let pixel = U8x4::new([1, 128, 255, 255]);
+        let res = divide_alpha_pixel(pixel);
+        assert_eq!(res.0, [1, 128, 255, 255]);
+    }
+}
