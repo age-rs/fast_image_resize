@@ -1,5 +1,10 @@
 ## [Unreleased] - ReleaseDate
 
+### Changed
+
+- Improved speed of `AVX2` implementation for vertical
+  convolution pass for pixel types based on `u8` components.
+
 ### Fixed
 
 - Fixed a deadlock in case of using `rayon` thread pool with only one thread to
@@ -28,7 +33,7 @@ a new feature `std` was added to the list of default features.
 ### Added
 
 - Added support of some variants of `ImageBuffer` type
-  form the `image` crate ([#57](https://github.com/Cykooz/fast_image_resize/issues/57)).
+  from the `image` crate ([#57](https://github.com/Cykooz/fast_image_resize/issues/57)).
 
 ## [5.4.0] - 2025-11-28
 

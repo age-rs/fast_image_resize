@@ -305,7 +305,7 @@ impl Resizer {
 
     /// # Safety
     /// This is unsafe because this method allows you to set a CPU extension
-    /// that is not supported by your CPU.
+    /// not supported by your CPU.
     pub unsafe fn set_cpu_extensions(&mut self, extensions: CpuExtensions) {
         self.cpu_extensions = extensions;
         self.mul_div.set_cpu_extensions(extensions);

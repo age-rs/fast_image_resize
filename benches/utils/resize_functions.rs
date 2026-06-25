@@ -1,6 +1,6 @@
+use std::hint::black_box;
 use std::ops::Deref;
 
-use criterion::black_box;
 use fast_image_resize::images::Image;
 use fast_image_resize::{CpuExtensions, FilterType, ResizeAlg, ResizeOptions, Resizer};
 use image::{imageops, ImageBuffer};
@@ -12,7 +12,7 @@ const ALG_NAMES: [&str; 5] = ["Nearest", "Box", "Bilinear", "Bicubic", "Lanczos3
 const NEW_WIDTH: u32 = 852;
 const NEW_HEIGHT: u32 = 567;
 
-/// Resize image with help of "image" crate (https://crates.io/crates/image)
+/// Resize the image with the help of "image" crate (https://crates.io/crates/image)
 pub fn image_resize<P, C>(bench_group: &mut BenchGroup, src_image: &ImageBuffer<P, C>)
 where
     P: image::Pixel + 'static,
@@ -183,7 +183,7 @@ mod vips {
     }
 }
 
-/// Resize image with help of "fast_imager_resize" crate
+/// Resize image with the help of "fast_imager_resize" crate
 pub fn fir_resize<P: PixelTestingExt>(bench_group: &mut BenchGroup, use_alpha: bool) {
     let src_image_data = P::load_big_src_image();
     let mut dst_image = Image::new(NEW_WIDTH, NEW_HEIGHT, src_image_data.pixel_type());
