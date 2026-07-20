@@ -4,6 +4,8 @@
 
 - Improved speed of `AVX2` implementation for vertical
   convolution pass for pixel types based on `u8` components.
+- Improved speed of `native` implementation for vertical
+  convolution pass for pixel types based on `u16` components.
 
 ### Fixed
 
