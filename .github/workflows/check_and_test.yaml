@@ -56,7 +56,7 @@ jobs:
       - name: Setup `wasmtime`
         uses: bytecodealliance/actions/wasmtime/setup@v1
         with:
-          version: "40.0.0"
+          version: "46.0.1"
 
       - name: Install Rust toolchain and target
         uses: actions-rust-lang/setup-rust-toolchain@v1
