@@ -26,15 +26,15 @@ SAVE_RESULT=1 cargo test
 
 # Benchmarks
 
-Run benchmarks to compare with other crates for image resizing and write results into
-report files, such as `./benchmarks-x86_64.md`:
+Run benchmarks to compare with other crates for image resizing and write results
+into report files, such as `./benchmarks-x86_64.md`:
 
 ```shell
 WRITE_COMPARE_RESULT=1 cargo bench -- Compare
 ```
 
-If you want to use old benchmark results for other crates, you must add
-an env variable with the number of days as a result lifetime:
+If you want to use old benchmark results for other crates, you must add an env
+variable with the number of days as a result lifetime:
 
 ```shell
 WRITE_COMPARE_RESULT=1 RESULTS_LIFETIME=5 cargo bench -- Compare
@@ -48,7 +48,7 @@ cargo bench --bench bench_resize -- --color=always --quick
 
 # Wasm32
 
-Specify build target and runner in `.cargo/config.toml` file.
+Specify the build target and runner in `.cargo/config.toml` file.
 
 ```toml
 [build]
@@ -70,8 +70,8 @@ Run tests with saving result images as files in `./data` directory:
 CARGO_TARGET_WASM32_WASIP2_RUNNER="wasmtime --dir=. --env SAVE_RESULT=1 --" cargo test
 ```
 
-Run benchmarks to compare with other crates for image resizing and write results into
-report files, such as `./benchmarks-wasm32.md`:
+Run benchmarks to compare with other crates for image resizing and write results
+into report files, such as `./benchmarks-wasm32.md`:
 
 ```shell
 CARGO_TARGET_WASM32_WASIP2_RUNNER="wasmtime --dir=. --env WRITE_COMPARE_RESULT=1 --" cargo bench --no-fail-fast -- --color=always Compare

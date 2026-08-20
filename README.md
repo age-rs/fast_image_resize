@@ -28,26 +28,26 @@ Supported pixel formats and available optimizations:
 
 ## Rust version
 
-Rust 1.95 and 1.96 (actually LLVM) have [regression](https://github.com/rust-lang/rust/issues/157456)
-in Wasm32 SIMD128 implementation.
-It affects the implementation of dividing U8x4 pixels by alpha channel for Wasm32 SIMD128.
+Rust 1.95 and 1.96 (actually LLVM)
+have [regression](https://github.com/rust-lang/rust/issues/157456)
+in Wasm32 SIMD128 implementation. It affects the implementation of dividing U8x4 pixels by
+alpha channel for Wasm32 SIMD128.
 
 ## Colorspace
 
-Resizer from this crate does not convert image into linear colorspace
-during a resize process. If it is important for you to resize images with a
-non-linear color space (e.g. sRGB) correctly, then you have to convert
-it to a linear color space before resizing and convert back to the color space of
-result image. [Read more](http://www.ericbrasseur.org/gamma.html)
-about resizing with respect to color space.
+Resizer from this crate does not convert image into linear colorspace during a resize
+process. If it is important for you to resize images with a non-linear color space (e.g.
+sRGB) correctly, then you have to convert it to a linear color space before resizing and
+convert back to the color space of the result
+image. [Read more](http://www.ericbrasseur.org/gamma.html) about resizing with respect to
+color space.
 
-This crate provides the
-[PixelComponentMapper](https://docs.rs/fast_image_resize/latest/fast_image_resize/struct.PixelComponentMapper.html)
-structure that allows you to create colorspace converters for images
-whose pixels based on `u8` and `u16` components.
+This crate provides the [PixelComponentMapper](https://docs.rs/fast_image_resize/latest/fast_image_resize/struct.PixelComponentMapper.html)
+structure that allows you to create colorspace converters for images whose pixels are
+based on `u8` and `u16` components.
 
 In addition, the crate contains functions `create_gamma_22_mapper()`
-and `create_srgb_mapper()` to create instance of `PixelComponentMapper`
+and `create_srgb_mapper()` to create an instance of `PixelComponentMapper`
 that converts images from sRGB or gamma 2.2 into linear colorspace and back.
 
 ## Multi-threading
@@ -57,8 +57,8 @@ You should enable `"rayon"` feature to turn on image processing in
 
 ## Use in a `no_std` environment
 
-To use the crate in a `no_std` environment you must disable
-default features and enabled the `no_std` feature:
+To use the crate in a `no_std` environment you must disable default features and enable
+the `no_std` feature:
 
 ```toml
 [dependencies]
@@ -68,9 +68,12 @@ fast_image_resize = { version = "6.0", default-features = false, features = ["no
 ## Some benchmarks in single-threaded mode for x86_64
 
 _All benchmarks:_
-[_x86_64_](https://github.com/Cykooz/fast_image_resize/blob/main/benchmarks-x86_64.md),
-[_ARM64_](https://github.com/Cykooz/fast_image_resize/blob/main/benchmarks-arm64.md),
-[_WASM32_](https://github.com/Cykooz/fast_image_resize/blob/main/benchmarks-wasm32.md).
+[
+_x86_64_](https://github.com/Cykooz/fast_image_resize/blob/main/benchmarks-x86_64.md),
+[
+_ARM64_](https://github.com/Cykooz/fast_image_resize/blob/main/benchmarks-arm64.md),
+[
+_WASM32_](https://github.com/Cykooz/fast_image_resize/blob/main/benchmarks-wasm32.md).
 
 Other libraries used to compare of resizing speed:
 
@@ -152,7 +155,7 @@ Pipeline:
 
 Note: You must enable `"image"` feature to support of
 [image::DynamicImage](https://docs.rs/image/latest/image/enum.DynamicImage.html).
-Otherwise, you have to convert such images into supported by the crate image type.
+Otherwise, you have to convert such images into a supported by the crate image type.
 
 ```rust
 use std::io::BufWriter;

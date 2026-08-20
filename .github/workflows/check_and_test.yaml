@@ -23,7 +23,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: Swatinem/rust-cache@v2
         with:
@@ -51,16 +51,18 @@ jobs:
       CARGO_TARGET_WASM32_WASIP2_RUNNER: "wasmtime --dir=. --"
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Setup `wasmtime`
         uses: bytecodealliance/actions/wasmtime/setup@v1
         with:
-          version: "46.0.1"
+          version: "48.0.0"
 
       - name: Install Rust toolchain and target
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
+          # 1.95+ have regression in Wasm32 SIMD128 implementation.
+          toolchain: 1.94.1
           target: wasm32-wasip2
           cache-on-failure: "true"
           rustflags: ""
@@ -79,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install Rust toolchain and target
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
